@@ -1,0 +1,402 @@
+{
+	"info": {
+		"name": "taxi-traker-api",
+		"_postman_id": "01cf6b51-790d-c8e8-bca4-75711944de13",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "vehicle",
+			"description": "",
+			"item": [
+				{
+					"name": "get_list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:5000/api/vehicle",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"vehicle"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_position",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDE2NTE3MjUsImlhdCI6MTU0MTY1MTQyNSwic3ViIjoiZmJkZDQ2ZjItYmEyMi00OTQxLTgzM2ItODExYWQyYmI1MGI0IiwidXNlIjoiYWNjZXNzIn0.37OI-LUMrLsvbsBJAkXoVltJO9QTVEHHIrR7hKcxrpgCilSjYd-krCTFSSMEuGtmPqYzwgvqgnFrkyLObf40Q6JrMVZBzkxEeZI958Nykm4KWgmgzG72sGG04SnIBGh_G2YBe9YWXs0T0H8CvWtJxYv_nAuVpaAHEOjg05lWu01T356OrPTI1wCQWFcZK24h57pxxafwsJXhR23Y8o7xjPeNZZ-c0LDx6MDAtcRCOf3nvMsVSjyu1YnvbDhwzc3UBhXR2CG9vAOb7NscAOXpSFnJOQth6mBiPY8x3LWILs9gWVDacUWVbh0ZCtsXxvLZG9aI7CgnmXWZkRWZcoZpFg"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:5000/api/vehicle/1/position",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"vehicle",
+								"1",
+								"position"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePosition",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDIwMDkyMTIsImlhdCI6MTU0MjAwNzQxMiwic3ViIjoiMDEzNzBhNGItYmU3NC00MGFkLWE4ZTAtNDZhZjAwNDZjNDYyIiwidXNlIjoiYWNjZXNzIn0.WB_tk884dBtdxZ-K50fq19vWLWhjgET29HkKVYVpJ3Mxlt08x1nvKv8bE_8Bt6SxiaQDUkw2AYlWHXt4f0sq9p4F9hooqgd5M5HOOmZfOKgXvz5C5ysBMil-s38Qqo7jD1_n2VTkGIG1qj5p_8d6Sf5_tn5XTwj0UaEPjbz4UX2dMA5HsqOt2dbJf6c2RCOSV1qLKCACRF2Uohv4S_XasRyEf7wZKh2_rhUsvhS5gUc2U4KERwZ_QO2iBv2nyj41y0vATvpKN207QH-nRaMqpwfGO-Ey8Fozn5ydo89eo5iY3ha831oDmxPNL2MQRBfLeWM3K-QH_3hItS_6qGWcTQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vehicle_id\": \"B-83-570\",\n    \"latitude\": 10.123456,\n    \"longitude\": 5.23454\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/vehicle/B-83-570/position",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"vehicle",
+								"B-83-570",
+								"position"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePositionV2",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDIwMzM5NDYsImlhdCI6MTU0MjAzMjE0Niwic3ViIjoiMDEzNzBhNGItYmU3NC00MGFkLWE4ZTAtNDZhZjAwNDZjNDYyIiwidXNlIjoiYWNjZXNzIn0.ign8wXZMeYMlAaLecYDVD2dz2BvbDYYKvpCgvrpwFcZ2gGHcFRdebrS7dbQUN4rc5gr47qnRV1lkk2PmrTZ72NtP8lgviQ89G1bt_yzNGJZN1Jjm6q3MOLb8bYi59-jI5QnNEoLX4fHQR1UIoMiAOMGSShqqwahLnS2izGmKDTLs8XJLHq9htE_9XyRdZnwa86JHLkGpa6wL_17DNIjRYKYGgq1MmaHrhMzqae2efncGvcKVtphjuyLBWI8v8Z768Cvignm8thPAf4wIW3qt8feppgqyo2x3ANIqTtXqaDtUkCCpye1XawMvHbbs3dQ0V23kj5RpOtNQzB__Qspqjw"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vehicle_id\": \"B-83-570\",\n    \"latitude\": 10.123456,\n    \"longitude\": 5.23454\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v2/vehicle/position",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v2",
+								"vehicle",
+								"position"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "255d516a-0350-49f7-94ce-07736853b998",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "48fb9ea4-3be3-4c73-a16a-dea778192945",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"description": "",
+			"item": [
+				{
+					"name": "customer_register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\": \"fco\",\n\t\"last_name\": \"pp\",\n\t\"email\": \"music_2992@gmail.com\",\n\t\"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customer"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "customer_login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user\": \"music_2992@gmail.com\",\n\t\"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/customer_session/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customer_session",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "17fdc6a2-e39e-472e-808b-2fb7a43169c5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "13e81d0e-1735-4f94-91ad-02f2eddc4456",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "driver",
+			"description": "",
+			"item": [
+				{
+					"name": "driver_register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"first_name\": \"fco\",\n\t\"last_name\": \"pp\",\n\t\"email\": \"programsc@hotmail.com\",\n\t\"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/driver",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"driver"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "driver_login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user\": \"programsc@hotmail.com\",\n\t\"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/driver_session/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"driver_session",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vehicle_driver",
+			"description": "",
+			"item": [
+				{
+					"name": "create_vehicle_driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDE3MzY3OTEsImlhdCI6MTU0MTczNDk5MSwic3ViIjoiMDEzNzBhNGItYmU3NC00MGFkLWE4ZTAtNDZhZjAwNDZjNDYyIiwidXNlIjoiYWNjZXNzIn0.XH7J-VBzqPqO4-lFJghtIMyfJ399nhDOW6QAvr7srbVNh8h9dxkLPGpP3sR9TNuo-dEU5x9yNX_jNbshLlMA7R6EwKPLbe-nZDcmnPGa2obCyoOazewGzmCL-lzF7sOXvfu7MD3VVz6rl8-tdgpHZwI-DBQayeU6rx9ETWvkFayFSwYO_H6AVXIwhjr-9fBuMQtUEGrPa8A3mWzwJnOktAW6oc1QbYVUHpIy7iABTR-Nizf2mayIZCWYfH8p98X7ajY6gd9po1ZlaHn3tivvzFdWMQk5oAhkVK47pc-nhStcGW77f1mIbjEv_F3pDtlP11MirLKp-IMgZBBromioFw"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:5000/api/vehicle_driver/B-83-570",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"vehicle_driver",
+								"B-83-570"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "taxi_service",
+			"description": "",
+			"item": [
+				{
+					"name": "create_taxi_service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDE3NTY5ODEsImlhdCI6MTU0MTc1NTE4MSwic3ViIjoiZDEwMzBjMDAtMTE2Yy00YTZlLWI3MTctZWIwYjgxNDdlZDNkIiwidXNlIjoiYWNjZXNzIn0.xLG-U1OdzQ21x_HQHvXX2CJ1aysCwReTq-kI9swJ-fQhzCuWN7PU68HNiUAIrC5vCs8ZenwG_yagJ937oOIgTHk41Anr6n4nFvzxoEjsqHxuyxn5XXnbR0DHo9m2ySeX04QA4ipHyZWipCthAlbKy7v1UjzgY0jceW9ugscQ64YRzcSr3dd1x09DCt_UO6vGUU2nMOgTKn5RseR0HkEcMeUkwbnzUKG6zgRGNvag23hy5L_rhJ6p9-WCXAAf4cZmFz5XAN4ypMkAk28DqpITWSKEDIyiEJk5dqLBxeZ5MQVFa7W10ftCPt0UqbiQM7gfdSYd_XETtbP5NpsNdHDVXQ"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:5000/api/taxi_service/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"taxi_service",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get_taxi_service",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDE3NTY5ODEsImlhdCI6MTU0MTc1NTE4MSwic3ViIjoiZDEwMzBjMDAtMTE2Yy00YTZlLWI3MTctZWIwYjgxNDdlZDNkIiwidXNlIjoiYWNjZXNzIn0.xLG-U1OdzQ21x_HQHvXX2CJ1aysCwReTq-kI9swJ-fQhzCuWN7PU68HNiUAIrC5vCs8ZenwG_yagJ937oOIgTHk41Anr6n4nFvzxoEjsqHxuyxn5XXnbR0DHo9m2ySeX04QA4ipHyZWipCthAlbKy7v1UjzgY0jceW9ugscQ64YRzcSr3dd1x09DCt_UO6vGUU2nMOgTKn5RseR0HkEcMeUkwbnzUKG6zgRGNvag23hy5L_rhJ6p9-WCXAAf4cZmFz5XAN4ypMkAk28DqpITWSKEDIyiEJk5dqLBxeZ5MQVFa7W10ftCPt0UqbiQM7gfdSYd_XETtbP5NpsNdHDVXQ"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:5000/api/taxi_service/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"taxi_service",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
