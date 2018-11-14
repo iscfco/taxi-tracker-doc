@@ -42,9 +42,22 @@ CREATE TABLE driver(
 	CONSTRAINT pk_driver PRIMARY KEY(id)
 );
 
+CREATE TABLE vehicle_driver_status(
+	id 			INT2 NOT NULL,
+	description TEXT NOT NULL,
+	CONSTRAINT pk_vehicle_driver_status PRIMARY KEY(id)
+);
+
+INSERT INTO vehicle_driver_status
+	(id, description)
+VALUES
+	(1, 'Free'),
+	(2, 'Busy');
+
 CREATE TABLE vehicle_driver(
-	vehicle_id VARCHAR(8) NOT NULL,
-	driver_id VARCHAR(36) NOT NULL,
+	vehicle_id 	VARCHAR(8) 	NOT NULL,
+	driver_id	VARCHAR(36) NOT NULL,
+	status		INT2		NOT NULL DEFAULT 1,
 	CONSTRAINT pk_vehicle_driver PRIMARY KEY(vehicle_id, driver_id),
 	CONSTRAINT fk_vehicle_vehicledriver_id FOREIGN KEY(vehicle_id)
 		REFERENCES vehicle(id)
@@ -54,6 +67,10 @@ CREATE TABLE vehicle_driver(
 		REFERENCES driver(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
+	CONSTRAINT fk_vehicledriverstatus_vehicledriver_id FOREIGN KEY(status)
+		REFERENCES vehicle_driver_status(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
 );
 
 CREATE TABLE customer (
@@ -82,6 +99,8 @@ CREATE TABLE taxi_service(
 	customer_id VARCHAR(36) NOT NULL,
 	vehicle_id 	VARCHAR(8)  NOT NULL,
 	driver_id	VARCHAR(36)	NOT NULL,
+	user_latitude  FLOAT 	NOT NULL,
+	user_longitude FLOAT 	NOT NULL,
 	CONSTRAINT pk_taxi_service PRIMARY KEY(customer_id, vehicle_id),
 	CONSTRAINT fk_customer_taxiservice_id FOREIGN KEY(customer_id)
 		REFERENCES customer(id)
@@ -179,33 +198,71 @@ $$ LANGUAGE plpgsql;
 
 /* -----------------------------------------------------------------------------------------
  * *****************************************************************************************
-	new function
+	New function
+ 	ResultCodes:
+ 	0 = El usuario no tiene un servicio actualment, se ejecuto la operacion de relacionar un servicio
+ 	1 = El usuario ya cuenta con un servicio previamente.
 */
-DROP FUNCTION IF EXISTS taxi_service_insert(VARCHAR);
+DROP FUNCTION IF EXISTS taxi_service_insert(VARCHAR, FLOAT, FLOAT);
 
 CREATE OR REPLACE FUNCTION taxi_service_insert(
-        p_customer_id VARCHAR(36)
+        p_customer_id	 VARCHAR(36),
+        p_user_latitude  FLOAT,
+        p_user_longitude FLOAT
 )
-RETURNS VARCHAR AS
+RETURNS TABLE(
+	res_result_code	  INT2,
+	res_vehicle_id    VARCHAR,
+	res_customer_name VARCHAR
+) AS
 $$
 DECLARE
-    counter INT2;
+    var_vehicle_id VARCHAR;
+	var_driver_id VARCHAR;
 BEGIN    
-    SELECT COUNT(*) INTO counter 
+    SELECT vehicle_id INTO var_vehicle_id 
     FROM taxi_service
     WHERE customer_id = p_customer_id;
 
-	IF counter <> 0 THEN
-		RETURN p_customer_id;
+	IF var_vehicle_id IS NOT NULL THEN
+		RETURN QUERY(
+			SELECT 1::INT2, var_vehicle_id, ''::VARCHAR
+		);
+		RETURN;
 	END IF;
 	
-	INSERT INTO taxi_service (customer_id, vehicle_id, driver_id)
-		SELECT p_customer_id, vehicle_id, driver_id 
-		FROM vehicle_driver LIMIT 1
-	RETURNING customer_id INTO p_customer_id;
-	RETURN p_customer_id;
+	SELECT vehicle_id, driver_id INTO var_vehicle_id, var_driver_id 
+	FROM vehicle_driver
+	WHERE status = 1
+	LIMIT 1;
+
+	IF var_vehicle_id IS NULL THEN
+		RETURN QUERY(
+			SELECT 0::INT2, ''::VARCHAR, ''::VARCHAR
+		);
+		RETURN ;
+	END IF;
+
+	INSERT INTO taxi_service 
+		(customer_id,   vehicle_id,     driver_id,     user_latitude,   user_longitude)
+	VALUES
+		(p_customer_id, var_vehicle_id, var_driver_id, p_user_latitude, p_user_longitude);
+
+	UPDATE vehicle_driver
+	SET	status = 2
+	WHERE vehicle_id = var_vehicle_id
+		AND driver_id = var_driver_id;
+	
+	RETURN QUERY(
+		SELECT 0::INT2, var_vehicle_id, first_name
+		FROM customer
+		WHERE id = p_customer_id
+	);
+	RETURN;
 END    
 $$ LANGUAGE plpgsql;
+
+SELECT * FROM taxi_service_insert('d1030c00-116c-4a6e-b717-eb0b8147ed3d', 1.224523::FLOAT, 2.123123::FLOAT);
 
 
 /* -----------------------------------------------------------------------------------------
@@ -237,6 +294,7 @@ BEGIN
 	RETURN 0;
 END    
 $$ LANGUAGE plpgsql;
+
 
 
 
